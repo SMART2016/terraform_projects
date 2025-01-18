@@ -69,7 +69,19 @@
             # The terraform and terraform-ls packages are retrieved from the pkgs package set defined earlier.
             terraform      # The main Terraform package
             terraform-ls   # Terraform language server for IDE support
+            graphviz       # Graphviz for visualizing Terraform graphs
+            python3        # Python 3 runtime
+            python3Packages.pip  # Ensure pip is available
           ];
+
+          # Install blast-radius using yarn
+          shellHook = ''
+            if ! python3 -m pip show blastradius > /dev/null; then
+               echo "Installing blast-radius via pip..."
+               python3 -m pip install blastradius
+            fi
+            echo "You can now run blast-radius in this shell."
+          '';
         };
       });
 }
