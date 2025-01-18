@@ -1,0 +1,15 @@
+{
+  description = "Flake to install Terraform";
+
+  outputs = { self, nixpkgs }: {
+    devShells.default = nixpkgs.lib.mkDevShell {
+      packages = [
+        nixpkgs.terraform
+      ];
+    };
+  };
+
+  inputs = {
+    nixpkgs.url = "nixpkgs/nixos-unstable";
+  };
+}
