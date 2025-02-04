@@ -173,4 +173,6 @@
   2. Environment Variables (TF_VAR_<variable_name>)
   3. Variable Definition Files (-var-file)
   4. Default Variable Values in variables.tf
-  
+- As a good practise we should move the tfvar files in a seperate directory and refer them while applying.
+- Sensitive Data Handling
+  - 
