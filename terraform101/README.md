@@ -174,5 +174,8 @@
   3. Variable Definition Files (-var-file)
   4. Default Variable Values in variables.tf
 - As a good practise we should move the tfvar files in a seperate directory and refer them while applying.
-- Sensitive Data Handling
-  - 
+
+## Output
+- To get the value of an output variable we can use below command
+  - `terraform output <output-variable-name>`
+- Everything is written in plain text i n terraform state file , so it should be kept safe.

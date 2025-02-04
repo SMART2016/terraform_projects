@@ -1,2 +1,2 @@
 # Automatically loaded by terraform
-application_name = "dipanjan-examples"
+application_name = "dipanjan-examples-auto"
