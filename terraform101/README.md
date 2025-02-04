@@ -103,3 +103,72 @@
   Terraform builds a directed acyclic graph (DAG) based on these dependencies, where each node represents a resource,
    and edges represent dependencies between them. During the terraform apply process, Terraform traverses this graph, 
    creating or modifying resources in the appropriate order to satisfy their dependencies.
+
+
+## Input Variables
+- Different ways to provide values to input variables
+  1. **Command-Line Flags (-var)**
+     - Provide variable values directly in the terraform plan or terraform apply commands:
+       - `terraform apply -var="instance_type=t2.large"
+     - Use Case
+       - Useful for one-off changes without modifying variable files.
+       - Ideal for quick testing.
+     - Precedence
+       - Command-line flags have the highest precedence.
+  2. **Environment Variables (TF_VAR_<variable_name>)**
+      - You can set input variables through environment variables prefixed with TF_VAR_. For example:
+       - `export TF_VAR_instance_type=t2.micro`
+       - Use Case 
+         - Useful for CI/CD pipelines or when working across multiple environments. 
+         - Ideal for sensitive variables stored in environment secrets. 
+       - Precedence 
+         - Environment variables have lower precedence than command-line flags but higher than variables defined in files.
+  3. Files specified with -var-file flag have higher precedence than default .tfvars files.
+  4. **terraform.auto.tfvars (or .tfvars.json)**
+     - This file automatically provides variable values without needing explicit reference in the Terraform commands. 
+     - Terraform automatically loads it during execution
+     - Use Case 
+       - Useful for default environment-specific configurations. 
+       - Ideal for shared settings in multi-user environments without requiring -var-file flags.
+     - Precedence 
+       - terraform.auto.tfvars and terraform.auto.tfvars.json are loaded automatically and have higher precedence than terraform.
+           tfvars but lower than -var-file and environment variables.
+  5. **Variable Definition Files (.tfvars or .tfvars.json)**
+      - You can define variables in files with .tfvars or .tfvars.json extensions:
+        - variables.tfvars (HCL)
+          - `instance_type = "t2.medium"
+        - variables.json
+          - ```
+               {
+                 "instance_type": "t2.medium"
+               }
+            ```
+     - Use Case
+       - Useful for managing configurations in a structured and reusable manner.
+       - Ideal for different environment configurations.
+     - Precedence
+       - Files specified with -var-file flag have higher precedence than default .tfvars files.
+     - Default File Locations
+       - Terraform automatically loads these files:
+         - terraform.tfvars 
+         - terraform.tfvars.json
+     - Specifying Custom Files
+       - `terraform apply -var-file="prod.tfvars"`
+  6. **Default Variable Values in variables.tf**
+     - Define default values directly in the Terraform configuration file:
+       ```azure
+             variable "instance_type" {
+                      default = "t2.micro"
+            }
+       ```
+     - Use Case
+       - Useful when most deployments share a common configuration.
+       - Avoids the need for explicit user input.
+     - Precedence
+       - Lowest precedence; overridden by all other methods.
+- **Precedence Order (From Highest to Lowest)**
+  1. Command-Line Flags (-var)
+  2. Environment Variables (TF_VAR_<variable_name>)
+  3. Variable Definition Files (-var-file)
+  4. Default Variable Values in variables.tf
+  
