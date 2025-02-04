@@ -9,3 +9,4 @@ resource "random_string" "suffix" {
 locals {
   environment_suffix = "${var.application_name}-${var.environment_name}-${random_string.suffix.result}"
 }
+
