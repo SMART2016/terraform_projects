@@ -1,6 +1,15 @@
 variable "application_name" {
   # Variable type definition
   type = string
+  # input validation
+  validation {
+    # Any Boolean Expression, we can use anything in the condition variables, locals , datastores , resources.
+    # It is recommeneded not to use resources here , because they will not exist until apply is run the first time
+    condition = length(var.application_name) <= 12
+
+    # In case condition returns False use below error
+    error_message = "Always True"
+  }
 }
 variable "environment_name" {
   type = string
@@ -30,4 +39,12 @@ variable "region_instance_count"{
 # Cannot be accessed via index and can only be iterated
 variable "region_set" {
   type = set(string)
+}
+
+# Complex Object Variable
+variable "skew_settings" {
+  type = object({
+    kind = string
+    tier = string
+  })
 }

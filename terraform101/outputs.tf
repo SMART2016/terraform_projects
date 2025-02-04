@@ -24,3 +24,7 @@ output "primary_region" {
 output "primary_region_count" {
   value = var.region_instance_count["westus"]
 }
+
+output "kind" {
+  value = var.skew_settings.kind
+}

@@ -9,3 +9,8 @@ region_instance_count = {
 }
 
 region_set = ["westus","eastus"]
+
+skew_settings = {
+  kind= "T"
+  tier = "Business"
+}
