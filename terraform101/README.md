@@ -154,6 +154,8 @@
          - terraform.tfvars.json
      - Specifying Custom Files
        - `terraform apply -var-file="prod.tfvars"`
+       - **NOTE:** It is generally used to place variable values that change across environments like dev,prod etc , 
+           such variable values should stay in the default.auto.tfvars
   6. **Default Variable Values in variables.tf**
      - Define default values directly in the Terraform configuration file:
        ```azure
