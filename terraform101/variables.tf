@@ -5,12 +5,18 @@ variable "application_name" {
   validation {
     # Any Boolean Expression, we can use anything in the condition variables, locals , datastores , resources.
     # It is recommeneded not to use resources here , because they will not exist until apply is run the first time
-    condition = length(var.application_name) <= 12
+    condition = length(var.application_name) <= var.name_length
 
     # In case condition returns False use below error
-    error_message = "Always True"
+    error_message = "Application Name greater than ${var.name_length} is not allowed"
   }
 }
+
+variable "name_length" {
+  type = number
+  default = 30
+}
+
 variable "environment_name" {
   type = string
 }
